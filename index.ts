@@ -1,8 +1,6 @@
 import { Router } from "express";
 import { body, param } from "express-validator";
-import { CreateMenuSubMenuController } from "./create-menuSubMenu.controller";
-import { FindAllController } from "./find-all.controller";
-import { UpdateController } from "./update.controller";
+import { MenuSubMenuController } from "./menuSubMenu.controller";
 
 const router: Router = Router();
 router
@@ -12,13 +10,13 @@ router
             body('status').optional(),
             param("infotype").isString().isIn(["menu", "subMenu"]).withMessage("Invalid infotype"),
         ],
-        CreateMenuSubMenuController.create,
+        MenuSubMenuController.create,
     )
     .get("/:infotype",
         [
             param("infotype").isString().isIn(["menu", "subMenu"]).withMessage("Invalid infotype"),
         ],
-        FindAllController.findAllMenusAndSubMenus
+        MenuSubMenuController.findAllMenusAndSubMenus
     )
     .patch("/:id",
         [
@@ -26,7 +24,7 @@ router
             body('name').optional().isString().withMessage('Name must be a string'),
             body('type').optional().isString().withMessage('Type must be a string'),
         ],
-        UpdateController.updateMenuSubMenu
+        MenuSubMenuController.updateMenuSubMenu
     )
 
 export { router as menuRouter }
