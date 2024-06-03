@@ -2,6 +2,7 @@ import { Router } from "express";
 import { body, param } from "express-validator";
 import { CreateMenuSubMenuController } from "./create-menuSubMenu.controller";
 import { FindAllController } from "./find-all.controller";
+import { UpdateController } from "./update.controller";
 
 const router: Router = Router();
 router
@@ -19,6 +20,13 @@ router
         ],
         FindAllController.findAllMenusAndSubMenus
     )
-
+    .patch("/:id",
+        [
+            param('id').isInt().withMessage('ID must be an integer'),
+            body('name').optional().isString().withMessage('Name must be a string'),
+            body('type').optional().isString().withMessage('Type must be a string'),
+        ],
+        UpdateController.updateMenuSubMenu
+    )
 
 export { router as menuRouter }
